@@ -1,0 +1,37 @@
+﻿@{
+     Layout = "~/Views/Shared/_Layout.cshtml";
+     ViewBag.Title = "Sign In";
+}
+
+@using System.Web.Optimization;
+@model WorkHub.Web.Models.Auth.AuthData
+
+<section class="common-section">
+     <div class="container">
+          <h2 class="title white-text">Conectează-te la WorkHub</h2>
+          <p class="subtitle white-text">Intră în cont pentru a accesa platforma</p>
+
+          @using (Html.BeginForm("Auth", "Auth", FormMethod.Post, new { @class = "signin-form" }))
+          {
+               <div class="form-group">
+                    @Html.LabelFor(u => u.Email, "Email")
+                    @Html.TextBoxFor(u => u.Email, new { @type = "email", @class = "form-control", @placeholder = "Introdu adresa de email" })
+                    @Html.ValidationMessageFor(u => u.Email, "", new { @class = "text-danger" })
+               </div>
+
+               <div class="form-group">
+                    @Html.LabelFor(u => u.Password, "Parolă")
+                    @Html.PasswordFor(u => u.Password, new { @class = "form-control", @placeholder = "Introdu parola" })
+                    @Html.ValidationMessageFor(u => u.Password, "", new { @class = "text-danger" })
+               </div>
+
+               <button type="submit" class="link-primary">Conectează-te</button>
+          }
+
+          <p class="signin-link white-text">
+               Nu ai un cont? <a href="@Url.Action("Index", "Register")" class="link">Creează-ți unul</a>
+          </p>
+     </div>
+</section>
+
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">

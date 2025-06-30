@@ -1,0 +1,28 @@
+﻿@{
+     ViewBag.Title = "Sign In";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="common-section">
+     <div class="container">
+          <h2 class="title">Conectează-te la WorkHub</h2>
+          <p class="subtitle">Intră în cont pentru a accesa serviciile noastre</p>
+
+          <form action="@Url.Action("SignIn", "Auth")" method="POST" class="signin-form">
+               <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="Introdu adresa de email">
+               </div>
+               <div class="form-group">
+                    <label for="password">Parolă</label>
+                    <input type="password" id="password" name="password" required placeholder="Introdu parola">
+               </div>
+               <button type="submit" class="link-primary">Conectează-te</button>
+          </form>
+
+          <p class="signin-link">
+               Nu ai un cont? <a href="@Url.Action("SignUp", "Auth")" class="link">Creează-ți unul</a>
+          </p>
+     </div>
+</section>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">

@@ -1,0 +1,38 @@
+﻿@{
+     ViewBag.Title = "Sign Up";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="common-section">
+     <div class="container">
+          <h2 class="title">Creează-ți un cont</h2>
+          <p class="subtitle">Completează formularul pentru a te înregistra</p>
+
+          <form action="@Url.Action("SignUp", "Auth")" method="POST" class="signup-form">
+               <div class="form-group">
+                    <label for="name">Nume complet</label>
+                    <input type="text" id="name" name="name" required placeholder="Introdu numele complet">
+               </div>
+               <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="Introdu adresa de email">
+               </div>
+               <div class="form-group">
+                    <label for="password">Parolă</label>
+                    <input type="password" id="password" name="password" required placeholder="Introdu parola">
+               </div>
+               <div class="form-group">
+                    <label for="confirm-password">Confirmă parola</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirmă parola">
+               </div>
+               <button type="submit" class="btn btn-primary">Înregistrează-te</button>
+          </form>
+
+          <p class="signin-link">
+               Ai deja un cont? <a href="@Url.Action("SignIn", "Auth")" class="link">Conectează-te</a>
+          </p>
+     </div>
+</section>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />

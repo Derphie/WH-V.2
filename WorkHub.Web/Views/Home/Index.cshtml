@@ -1,0 +1,162 @@
+﻿@{ 
+     ViewBag.Title = "Index";
+}
+
+
+<main id="main" class="main">
+     <section class="welcome ">
+          <div class="container">
+               <h2 class="welcome__heading">Descoperă WorkHub!</h2>
+
+               <div class="welcome__links">
+                    <a href="@Url.Action("SignUp", "Auth")" class="link-primary">Sign Up</a>
+                    <a href="@Url.Action("SignIn", "Auth")" class="link">Sign In</a>
+
+
+
+               </div>
+          </div>
+     </section>
+
+     <section class="about common-section ">
+          <div class="container">
+               <div class="title-wrapper">
+                    <h3 class="title">Ce oferim</h3>
+                    <p class="subtitle">Transformăm ideile în realitate, conectând oameni din întreaga lume.</p>
+               </div>
+
+               <div class="cards-wrapper">
+                    <div class="card">
+                         <img src="@Url.Content("~/Content/img/card-icon1.jpg")" alt="Descrierea imaginii">
+
+                         <h4>Acces global la oportunități de muncă și talente</h4>
+                         <p>WorkHub conectează freelanceri și clienți din întreaga lume, facilitând colaborarea în diverse domenii.</p>
+                    </div>
+                    <div class="card">
+                         <img src="@Url.Content("~/Content/img/card-icon2.jpg")" alt="Descrierea imaginii">
+                         <h4>Sistem de evaluare transparent</h4>
+                         <p>Recenziile și ratingurile pe WorkHub ajută utilizatorii să colaboreze cu parteneri de încredere, bazându-se pe performanțele anterioare.</p>
+                    </div>
+                    <div class="card">
+                         <img src="@Url.Content("~/Content/img/card-icon3.jpg")" alt="Descrierea imaginii">
+                         <h4>Plăți sigure și multiple metode de tranzacție</h4>
+                         <p>WorkHub oferă un sistem de escrow pentru a garanta plățile corecte și sigure între clienți și freelanceri.</p>
+                    </div>
+                    <div class="card">
+                         <img src="@Url.Content("~/Content/img/card-icon4.jpg")" alt="Descrierea imaginii">
+                         <h4>  Instrumente integrate de gestionare</h4>
+                         <p>
+                              Platforma WorkHub include funcții precum mesagerie, urmărirea timpului și gestionarea sarcinilor pentru o colaborare eficientă.
+                         </p>
+                    </div>
+                    <div class="card">
+                         <img src="@Url.Content("~/Content/img/card-icon5.jpg")" alt="Descrierea imaginii">
+                         <h4>   Flexibilitate pentru freelanceri</h4>
+                         <p>
+                              WorkHub le permite freelancerilor să lucreze după propriul program, alegând proiectele care li se potrivesc cel mai bine.
+                         </p>
+                    </div>
+                    <div class="card">
+                         <img src="@Url.Content("~/Content/img/card-icon6.jpg")" alt="Descrierea imaginii">
+                         <h4>  Ce oferim pentru studenți?</h4>
+                         <p>
+                              WorkHub le oferă studenților sprijin la obiectele universitare, mentorat, ajutor la proiecte, acces la materiale de studiu și oportunități de colaborare pentru dezvoltare personală și profesională.
+                         </p>
+                    </div>
+               </div>
+          </div>
+     </section>
+
+     <section id="services" class="services common-section common-section--dark">
+          <div class="container">
+               <div class="title-wrapper">
+                    <h3 class="title">Servicii</h3>
+                    <p class="subtitle">Expertiză și profesionalism în fiecare proiect</p>
+               </div>
+
+               <div class="cards-wrapper">
+                    <div class="card">
+                         <img src="~/Content/img/services1.jpg" alt="Dezvoltare Web">
+                         <h4>Dezvoltare Web</h4>
+                         <p>Crearea site-urilor web moderne și responsive pentru afaceri, portofolii și e-commerce.</p>
+                         <a href="serviceweb.html" class="link learn-more">Learn more</a>
+                    </div>
+
+                    <div class="card">
+                         <img src="~/Content/img/services2.jpg" alt="Design Grafic">
+                         <h4>Design Grafic</h4>
+                         <p>Design profesional pentru logo-uri, bannere și materiale promoționale.</p>
+                         <a href="#!" class="link learn-more">Learn more</a>
+                    </div>
+
+                    <div class="card">
+                         <img src="~/Content/img/services3.jpg" alt="Consultanță în Marketing">
+                         <h4>Consultanță în Marketing</h4>
+                         <p>Crearea strategiilor de marketing digital pentru a atrage mai mulți clienți.</p>
+                         <a href="#!" class="link learn-more">Learn more</a>
+                    </div>
+
+                    <div class="card">
+                         <img src="~/Content/img/services4.jpg" alt="Editare Foto și Video">
+                         <h4>Editare Foto și Video</h4>
+                         <p>Editare foto și video profesională pentru vloguri, reclame sau materiale educaționale.</p>
+                         <a href="#!" class="link learn-more">Learn more</a>
+                    </div>
+
+                    <div class="card">
+                         <img src="~/Content/img/services5.jpg" alt="Traduceri">
+                         <h4>Traduceri</h4>
+                         <p>Servicii de traducere pentru documente, website-uri și alte proiecte.</p>
+                         <a href="#!" class="link learn-more">Learn more</a>
+                    </div>
+
+                    <div class="card">
+                         <img src="~/Content/img/services6.jpg" alt="Asistență pentru Studenți">
+                         <h4>Asistență pentru Studenți</h4>
+                         <p>Ajutor pentru lucrări individuale, laboratoare, proiecte și pregătire pentru examene.</p>
+                         <a href="#!" class="link learn-more">Learn more</a>
+                    </div>
+               </div>
+          </div>
+     </section>
+
+
+     <section class="tab-section common-section ">
+          <div class="container">
+               <div class="title-wrapper">
+                    <h3 class="title">De ce să ne alegi pe noi?</h3>
+                    <p class="subtitle">Transformăm ideile în realitate, conectând oameni din întreaga lume.</p>
+               </div>
+
+               <div class="tabs">
+                    <div class="tabs__nav">
+                         <button class="active" type="button">Strategii Personalizate</button>
+                         <button type="button">Creativitate și Inovație</button>
+                         <button type="button">Rezultate Măsurabile</button>
+                    </div>
+
+                    <div class="tabs__item">
+                         <img src="~/Content/img/tab1.jpg" alt="Descrierea imaginii">
+                         <h4>Strategii Personalizate</h4>
+                         <div class="tabs__desc">
+                              <p>Creăm soluții de marketing complet adaptate nevoilor și specificului afacerii tale. Analizăm piața, competitorii și obiectivele pentru a construi strategii eficiente și relevante, care să îți aducă un avantaj competitiv real.</p>
+                         </div>
+                    </div>
+                    <div class="tabs__item">
+                         <img src="~/Content/img/tab2.jpg" alt="Descrierea imaginii">
+                         <h4>Creativitate și Inovație</h4>
+                         <div class="tabs__desc">
+                              <p>Ne bazăm pe idei originale și tehnici inovatoare pentru a dezvolta proiecte care să atragă atenția publicului țintă. Designul captivant și mesajele clare transformă orice campanie într-un succes.</p>
+                         </div>
+                    </div>
+                    <div class="tabs__item">
+                         <img src="~/Content/img/tab3.jpg" alt="Descrierea imaginii">
+                         <h4>Rezultate Măsurabile</h4>
+                         <div class="tabs__desc">
+                              <p>Monitorizăm și optimizăm constant performanța campaniilor, oferind rapoarte clare și detaliate. Fiecare acțiune este orientată către atingerea unor obiective precise, precum creșterea vânzărilor sau a vizibilității brandului tău.</p>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </section>
+</main>
