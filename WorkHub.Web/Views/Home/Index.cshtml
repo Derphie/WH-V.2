@@ -1,5 +1,19 @@
-﻿@{ 
+﻿@{
      ViewBag.Title = "Index";
+
+     string username = Session["Username"] as string;
+     int? level = Session["Level"] as int?;
+     bool isLoggedIn = !string.IsNullOrEmpty(username);
+     string roleText = "";
+
+     if (isLoggedIn && level.HasValue)
+     {
+          if (level == 10)
+          {
+               roleText = "<span style='color:orange; font-weight:bold;'>Moderator</span>, ";
+          }
+     }
+
 }
 
 
@@ -9,12 +23,23 @@
                <h2 class="welcome__heading">Descoperă WorkHub!</h2>
 
                <div class="welcome__links">
-                    <a href="@Url.Action("SignUp", "Auth")" class="link-primary">Sign Up</a>
-                    <a href="@Url.Action("SignIn", "Auth")" class="link">Sign In</a>
-
-
-
+                    @if (isLoggedIn)
+                    {
+                         <p class="welcome__message chartreuse-text">
+                              Bun venit, @Html.Raw(roleText) <strong>@username</strong>
+                         </p>
+                         <a href="@Url.Action("Logout", "Auth")" class="link-primary">Log Out</a>
+                    }
+                    else
+                    {
+                         <p class="welcome__message chartreuse-text">
+                              Bine ai venit pe WorkHub! Creează un cont sau autentifică-te pentru a începe.
+                         </p>
+                         <a href="@Url.Action("Index", "Register")" class="link-primary">Sign Up</a>
+                         <a href="@Url.Action("Index", "Auth")" class="link">Sign In</a>
+                    }
                </div>
+
           </div>
      </section>
 
