@@ -1,0 +1,35 @@
+﻿@{
+     ViewBag.Title = "Editare Foto & Video | WorkHub";
+}
+
+<div style="background: white; margin-top: 90px;">
+     <div class="container">
+          <h1 style="text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 10px;">Editare Profesională</h1>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 30px; margin-top: 40px;">
+               <div style="flex: 1; min-width: 300px;">
+                    <h2 style="color: #3498db;">Editare Foto</h2>
+                    <img src="@Url.Content("~/Content/img/photo-editing.jpg")" style="width: 100%; border-radius: 8px;">
+                    <ul>
+                         <li>Retușare profesională</li>
+                         <li>Corecții culoare</li>
+                         <li>Editare produse</li>
+                    </ul>
+               </div>
+
+               <div style="flex: 1; min-width: 300px;">
+                    <h2 style="color: #3498db;">Editare Video</h2>
+                    <img src="@Url.Content("~/Content/img/video-editing.jpg")" style="width: 100%; border-radius: 8px;">
+                    <ul>
+                         <li>Montaj profesional</li>
+                         <li>Efecte speciale</li>
+                         <li>Color grading</li>
+                    </ul>
+               </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 40px;">
+               <a href="@Url.Action("Index", "Chat")" style="display: inline-block; padding: 12px 30px; background: #3498db; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">SOLICITĂ OFERTĂ</a>
+          </div>
+     </div>
+</div>

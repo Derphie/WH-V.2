@@ -1,0 +1,21 @@
+﻿@{
+     var username = Session["Username"] as string;
+     var isLoggedIn = !string.IsNullOrEmpty(username);
+}
+
+<div class="container header__container">
+     <h1 class="logo">
+          <a href="@Url.Action("Index", "Admin")">
+               WorkHub, <span style="color: #3498db;">Admin Space</span>
+          </a>
+     </h1>
+
+     <nav class="header__nav">
+          <ul>
+               <li><a href="@Url.Action("Index", "Admin")">Acasă</a></li>
+               <li><a href="@Url.Action("Users", "Admin")">Control User</a></li>
+               <li><a href="@Url.Action("Index", "Chat")">Chat</a></li>
+               <li><a href="@Url.Action("Logout", "Auth")">Logout, Admin, @username</a></li>
+          </ul>
+     </nav>
+</div>

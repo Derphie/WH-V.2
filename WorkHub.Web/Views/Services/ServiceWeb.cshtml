@@ -1,0 +1,32 @@
+﻿@{
+     ViewBag.Title = "Dezvoltare Web | WorkHub";
+}
+
+<section class="service-detail common-section" style="background: white;margin-top: 90px;">
+     <div class="container">
+          <h1 class="service-title">Dezvoltare Web</h1>
+          <img src="@Url.Content("~/Content/img/services1.jpg")" alt="Dezvoltare Web" class="service-image">
+
+          <div class="service-content">
+               <h2>Ce oferim?</h2>
+               <ul class="feature-list">
+                    <li><strong>Site-uri de prezentare</strong> - soluții personalizate pentru afaceri mici și portofolii</li>
+                    <li><strong>Magazine online</strong> - platforme e-commerce complete cu sistem de plăți</li>
+                    <li><strong>Aplicații web custom</strong> - dezvoltate pe măsură pentru nevoile dumneavoastră</li>
+               </ul>
+
+               <h2>Tehnologii utilizate</h2>
+               <div class="technology-grid">
+                    <div class="tech-item">HTML5/CSS3</div>
+                    <div class="tech-item">JavaScript/TypeScript</div>
+                    <div class="tech-item">React/Angular</div>
+                    <div class="tech-item">.NET Core/Node.js</div>
+               </div>
+
+               <div class="cta-section">
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">← Înapoi</a>
+                    <a href="@Url.Action("Index", "Chat")" class="btn btn-accent">Solicită ofertă</a>
+               </div>
+          </div>
+     </div>
+</section>

@@ -1,0 +1,43 @@
+@model WorkHub.Domain.Entities.User.UDbTable
+@{
+     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+     ViewBag.Title = "Editare Utilizator";
+}
+
+<h3>Editare Utilizator</h3>
+
+@using (Html.BeginForm())
+{
+     @Html.AntiForgeryToken()
+     @Html.HiddenFor(m => m.Id)
+
+     <div class="form-group">
+          @Html.LabelFor(m => m.Username)
+          @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+     </div>
+
+     <div class="form-group">
+          @Html.LabelFor(m => m.Email)
+          @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+     </div>
+
+     <div class="form-group">
+          @Html.LabelFor(m => m.Password)
+          @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Lasa gol daca nu vrei sa o schimbi" })
+     </div>
+
+     <div class="form-group">
+          @Html.LabelFor(m => m.Level)
+          <select name="Level" class="form-control">
+               @foreach (WorkHub.Domain.Enums.URole role in Enum.GetValues(typeof(WorkHub.Domain.Enums.URole)))
+               {
+                    <option value="@((int)role)" @(Model.Level == role ? "selected" : "")>
+                         @role.ToString() (@((int)role))
+                    </option>
+               }
+          </select>
+     </div>
+
+     <button type="submit" class="btn btn-success">Salveaza</button>
+     @Html.ActionLink("Anuleaza", "Database", new { selectedTable = "Users" }, new { @class = "btn btn-secondary" })
+}

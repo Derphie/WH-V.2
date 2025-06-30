@@ -1,0 +1,26 @@
+﻿@using System.Web.Optimization;
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>WorkHub | @ViewBag.Title</title>
+
+     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+     @Styles.Render("~/bundles/app/css")
+</head>
+<body>
+     <!-- Header -->
+     <header class="header">
+          @Html.Partial("_Header_Admin")
+     </header>
+
+     <!-- Main -->
+     @RenderBody()
+
+     @Scripts.Render("~/bundles/script/js");
+
+     @RenderSection("scripts", required: false)
+</body>
+</html>
