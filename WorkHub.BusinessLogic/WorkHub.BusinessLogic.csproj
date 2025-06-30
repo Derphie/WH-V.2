@@ -52,9 +52,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLogic\UserBL.cs" />
     <Compile Include="BussinesLogic.cs" />
+    <Compile Include="Core\AdminApi.cs" />
+    <Compile Include="Core\UserApi.cs" />
     <Compile Include="DBModel\UserContext.cs" />
+    <Compile Include="Interfaces\ISession.cs" />
+    <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionBL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WorkHub.Domain\WorkHub.Domain.csproj">
@@ -67,10 +73,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BLLogic\" />
-    <Folder Include="Core\" />
     <Folder Include="DBModel\Seed\" />
-    <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
