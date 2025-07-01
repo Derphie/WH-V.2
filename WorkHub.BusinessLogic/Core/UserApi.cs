@@ -29,7 +29,7 @@ namespace WorkHub.BusinessLogic.Core
                     {
                          user.LastLogin = DateTime.Now;
                          db.SaveChanges();
-                         return Guid.NewGuid().ToString(); // sau orice alt sistem de sesiuni
+                         return Guid.NewGuid().ToString(); 
                     }
 
                     return null;
