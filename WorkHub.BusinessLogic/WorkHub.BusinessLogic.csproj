@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLogic\AdminBL.cs" />
     <Compile Include="BLLogic\ChatBL.cs" />
     <Compile Include="BLLogic\UserBL.cs" />
     <Compile Include="BussinesLogic.cs" />
