@@ -78,6 +78,14 @@
     <Compile Include="Migrations\202506231419164_AddChatTables2.Designer.cs">
       <DependentUpon>202506231419164_AddChatTables2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202506240907464_AddChatMigration.cs" />
+    <Compile Include="Migrations\202506240907464_AddChatMigration.Designer.cs">
+      <DependentUpon>202506240907464_AddChatMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506240925485_AddChatMigration1.cs" />
+    <Compile Include="Migrations\202506240925485_AddChatMigration1.Designer.cs">
+      <DependentUpon>202506240925485_AddChatMigration1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionBL.cs" />
@@ -111,6 +119,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202506231419164_AddChatTables2.resx">
       <DependentUpon>202506231419164_AddChatTables2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506240907464_AddChatMigration.resx">
+      <DependentUpon>202506240907464_AddChatMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506240925485_AddChatMigration1.resx">
+      <DependentUpon>202506240925485_AddChatMigration1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

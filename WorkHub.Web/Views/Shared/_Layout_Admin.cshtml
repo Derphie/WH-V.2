@@ -9,25 +9,15 @@
 
      <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
      @Styles.Render("~/bundles/app/css")
-     @RenderSection("styles", required: false)
 </head>
 <body>
-     <a href="#" id="scroll-to-top" class="scroll-to-top">
-          ↑
-     </a>
-
      <!-- Header -->
      <header class="header">
-          @Html.Partial("_Header")
+          @Html.Partial("_Header_Admin")
      </header>
 
      <!-- Main -->
      @RenderBody()
-
-     <!-- Footer -->
-     <footer id="footer" class="footer">
-          @Html.Partial("_Footer")
-     </footer>
 
      @Scripts.Render("~/bundles/script/js");
 

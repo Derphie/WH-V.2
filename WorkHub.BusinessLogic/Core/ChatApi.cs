@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WorkHub.BusinessLogic.DBModel;
 using WorkHub.Domain.Enums;
 using WorkHub.Web.Models.Chat;
+using System.Data.Entity;
 
 namespace WorkHub.BusinessLogic.Core
 {
@@ -26,12 +27,14 @@ namespace WorkHub.BusinessLogic.Core
                     db.SaveChanges();
                }
           }
-
           public List<Chat> GetAllChatsAction()
           {
                using (var db = new UserContext())
                {
-                    return db.ChatRooms.OrderByDescending(c => c.CreatedAt).ToList();
+                    return db.ChatRooms
+                           .Include(c => c.Messages)
+                           .OrderByDescending(c => c.CreatedAt)
+                           .ToList();
                }
           }
 
@@ -39,7 +42,9 @@ namespace WorkHub.BusinessLogic.Core
           {
                using (var db = new UserContext())
                {
-                    return db.ChatRooms.Include("Messages").FirstOrDefault(c => c.Id == id);
+                    return db.ChatRooms
+                           .Include(c => c.Messages)
+                           .FirstOrDefault(c => c.Id == id);
                }
           }
 
@@ -61,14 +66,46 @@ namespace WorkHub.BusinessLogic.Core
                }
           }
 
-          public List<ChatMessage> GetMessagesForChatAction(int chatId)
+          public List<ChatMessage> GetMessagesForChatAction(int chatId, string currentUser)
+          {
+               using (var db = new UserContext())
+               {
+                    var messages = db.ChatMessages
+                                   .Where(m => m.ChatRoomId == chatId)
+                                   .OrderBy(m => m.SentAt)
+                                   .ToList();
+
+                    foreach (var msg in messages.Where(m => m.IsNew && m.Sender != currentUser))
+                    {
+                         msg.IsNew = false;
+                    }
+                    db.SaveChanges();
+
+                    return messages;
+               }
+          }
+
+          public int GetUnreadCountForChatAction(int chatId, string username)
           {
                using (var db = new UserContext())
                {
                     return db.ChatMessages
-                             .Where(m => m.ChatRoomId == chatId)
-                             .OrderBy(m => m.SentAt)
-                             .ToList();
+                           .Count(m => m.ChatRoomId == chatId &&
+                                  m.IsNew &&
+                                  m.Sender != username);
+               }
+          }
+
+          public void MarkMessageAsReadAction(int messageId)
+          {
+               using (var db = new UserContext())
+               {
+                    var message = db.ChatMessages.Find(messageId);
+                    if (message != null)
+                    {
+                         message.IsNew = false;
+                         db.SaveChanges();
+                    }
                }
           }
 
@@ -88,6 +125,33 @@ namespace WorkHub.BusinessLogic.Core
 
                          db.SaveChanges();
                     }
+               }
+          }
+
+          public void MarkChatAsReadAction(int chatId, string username)
+          {
+               using (var db = new UserContext())
+               {
+                    var messages = db.ChatMessages
+                                   .Where(m => m.ChatRoomId == chatId &&
+                                          m.IsNew &&
+                                          m.Sender != username)
+                                   .ToList();
+
+                    foreach (var msg in messages)
+                    {
+                         msg.IsNew = false;
+                    }
+                    db.SaveChanges();
+               }
+          }
+
+          public int GetUnreadCountAction(string username)
+          {
+               using (var db = new UserContext())
+               {
+                    return db.ChatMessages
+                            .Count(m => m.IsNew && m.Sender != username);
                }
           }
 

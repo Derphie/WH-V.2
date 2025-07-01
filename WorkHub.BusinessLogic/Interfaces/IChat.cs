@@ -16,5 +16,9 @@ namespace WorkHub.BusinessLogic.Interfaces
           void SendMessage(int chatId, string sender, string content, URole role);
           List<ChatMessage> GetMessagesForChat(int chatId);
           void DeleteChat(int chatId);
+          int GetUnreadCount(string username);
+          int GetUnreadCountForChat(int chatId, string username);
+          void MarkMessageAsRead(int messageId);
+          void MarkChatAsRead(int chatId, string username);
      }
 }

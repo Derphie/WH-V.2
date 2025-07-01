@@ -2,30 +2,39 @@
 @using WorkHub.Domain.Enums
 @{
      ViewBag.Title = "Chat";
-     Layout = "~/Views/Shared/_Layout.cshtml";
+     Layout = ViewBag.Layout as string ?? "~/Views/Shared/_Layout.cshtml";
 
      var username = Session["Username"] as string;
      int? level = Session["Level"] as int?;
      bool isModerator = level >= (int)URole.Moderator;
 }
 
-<div style="display: flex; gap: 20px; height: calc(100vh - 200px); margin-top: 80px;">
+<div style="display: flex; gap: 20px; height: calc(100vh - 200px); margin-top: 90px;">
 
      <!-- Sidebar: lista chat -->
      <div style="width:300px; overflow-y:auto; border:1px solid #ccc; padding:15px; background:#f0f4f8; border-radius:6px;">
-          <h4 style="margin-bottom:20px; color:#333;">📨 Chat-urile tale</h4>
+          <h4 style="margin-bottom:20px; color:#333;">
+               📨 Chat-urile tale
+               <span id="global-unread-count" class="unread-badge" style="margin-left:5px;"></span>
+          </h4>
 
           <ul style="list-style:none; padding:0; margin:0;">
                @foreach (var chat in Model.AllChats)
                {
                     var isActive = Model.ActiveChat != null && chat.Id == Model.ActiveChat.Id;
-                    <li style="margin-bottom:10px;">
+                    <li class="chat-list-item" data-chat-id="@chat.Id" style="margin-bottom:10px; position:relative;">
                          <a href="@Url.Action("Index", "Chat", new { id = chat.Id })"
                             style="display:block; padding:10px 12px; border-radius:6px;
-                              text-decoration:none; color:@(isActive ? "#fff" : "#333");
-                              background:@(isActive ? "#007bff" : "#fff");
-                              border:1px solid #ccc; transition:0.3s;">
-                              <strong>@chat.Title</strong><br />
+                          text-decoration:none; color:@(isActive ? "#fff" : "#333");
+                          background:@(isActive ? "#007bff" : "#fff");
+                          border:1px solid #ccc; transition:0.3s;">
+                              <strong>@chat.Title</strong>
+                              <span class="unread-badge"
+                                    style="display:none; position:absolute; right:10px; top:10px;
+                                 background-color:#28a745; color:white; border-radius:50%;
+                                 width:20px; height:20px; text-align:center; line-height:20px;
+                                 font-size:0.8em;"></span>
+                              <br />
                               <small style="color:@(isActive ? "#e6e6e6" : "#666")">@chat.Topic</small>
                          </a>
                     </li>
@@ -94,8 +103,19 @@
                               var isModOrAdmin = msg.SenderRole == URole.Moderator || msg.SenderRole == URole.Administrator;
                               var color = msg.Sender == username ? "#007bff" : (isModOrAdmin ? "#e67e22" : "#333");
                               var fontWeight = isModOrAdmin ? "bold" : "normal";
+                              var isNew = msg.IsNew && msg.Sender != username;
 
-                              <div style="margin-bottom:15px;">
+                              <div style="margin-bottom:15px; position:relative;
+                              @(isNew ? "background-color:#f8f9fa; border-left:4px solid #28a745;" : "")">
+                                   @if (isNew)
+                                   {
+                                        <span style="position:absolute; right:10px; top:0;
+                        background-color:#28a745; color:white;
+                        padding:2px 5px; border-radius:3px; font-size:0.8em;">
+                                             NOU
+                                        </span>
+                                   }
+
                                    <strong style="color:@color; font-weight:@fontWeight">
                                         @msg.Sender
                                         @if (msg.SenderRole == URole.Moderator)
@@ -151,3 +171,38 @@
           }
      </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Funcție pentru actualizarea numărului de mesaje necitite
+        function updateUnreadCount() {
+            $.get('@Url.Action("GetUnreadCount", "Chat")', function(data) {
+                // Actualizează indicatorul global
+                $('#global-unread-count').text(data > 0 ? data : '');
+
+                // Actualizează pentru fiecare chat individual
+                $('.chat-list-item').each(function() {
+                    var chatId = $(this).data('chat-id');
+                    $.get('@Url.Action("GetUnreadCountForChat", "Chat")', { chatId: chatId }, function(count) {
+                        var badge = $(this).find('.unread-badge');
+                        badge.text(count > 0 ? count : '');
+                        badge.toggle(count > 0);
+                    }.bind(this));
+                });
+            });
+        }
+
+        // Actualizează la fiecare 10 secunde
+        setInterval(updateUnreadCount, 10000);
+
+        // Inițializare la încărcarea paginii
+        updateUnreadCount();
+
+        // Marchează mesajele ca citite când chat-ul este deschis
+        if (@((Model.ActiveChat != null).ToString().ToLower())) {
+            $.post('@Url.Action("MarkChatAsRead", "Chat")', {
+                chatId: @(Model.ActiveChat?.Id ?? 0)
+            });
+        }
+    });
+</script>

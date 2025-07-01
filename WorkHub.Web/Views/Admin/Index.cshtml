@@ -1,0 +1,28 @@
+﻿@{
+     ViewBag.Title = "Admin Panel";
+     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+
+     string username = Session["Username"] as string;
+     int? level = Session["Level"] as int?;
+     bool isLoggedIn = !string.IsNullOrEmpty(username);
+     bool isAdmin = level.HasValue && level.Value == 100;
+}
+
+<main id="main" class="main admin-panel" style="margin-top: 100px;">
+     <div class="container admin-panel-box">
+          @if (isLoggedIn && isAdmin)
+          {
+               <h2 class="admin-welcome">Bun venit, <strong>@username</strong>!</h2>
+               <h4>Opțiuni disponibile:</h4>
+               <ul class="admin-options">
+                    <li><a href="@Url.Action("Users", "Admin")">✔️ Verifică baza de date (utilizatori)</a></li>
+                    <li><a href="@Url.Action("Index", "Chat")">💬 Verifică Chatul</a></li>
+                    <li><a href="@Url.Action("Logout", "Auth")">🚪 Log out</a></li>
+               </ul>
+          }
+          else
+          {
+               <p>Nu ai acces la această pagină.</p>
+          }
+     </div>
+</main>
