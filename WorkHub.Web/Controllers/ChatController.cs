@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using WorkHub.BusinessLogic;
 using WorkHub.BusinessLogic.Interfaces;
@@ -44,9 +45,11 @@ namespace WorkHub.Web.Controllers
                var username = Session["Username"] as string;
                int? level = Session["Level"] as int?;
                if (string.IsNullOrEmpty(username))
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Auth");
 
                bool isMod = level.HasValue && level.Value >= (int)URole.Moderator;
+
+               ViewBag.Layout = (level == 100) ? "~/Views/Shared/_Layout_Admin.cshtml" : "~/Views/Shared/_Layout.cshtml";
 
                var allChats = _chat.GetAllChats();
                var visibleChats = isMod
@@ -62,6 +65,38 @@ namespace WorkHub.Web.Controllers
 
                return View("Index", model);
           }
+
+          [HttpGet]
+          public ActionResult GetUnreadCount()
+          {
+               var username = Session["Username"] as string;
+               if (string.IsNullOrEmpty(username))
+                    return Json(0, JsonRequestBehavior.AllowGet);
+
+               return Json(_chat.GetUnreadCount(username), JsonRequestBehavior.AllowGet);
+          }
+
+          [HttpGet]
+          public ActionResult GetUnreadCountForChat(int chatId)
+          {
+               var username = Session["Username"] as string;
+               if (string.IsNullOrEmpty(username))
+                    return Json(0, JsonRequestBehavior.AllowGet);
+
+               return Json(_chat.GetUnreadCountForChat(chatId, username), JsonRequestBehavior.AllowGet);
+          }
+
+          [HttpPost]
+          public ActionResult MarkChatAsRead(int chatId)
+          {
+               var username = Session["Username"] as string;
+               if (!string.IsNullOrEmpty(username))
+               {
+                    _chat.MarkChatAsRead(chatId, username);
+               }
+               return new HttpStatusCodeResult(HttpStatusCode.OK);
+          }
+
 
           [HttpPost]
           [ValidateAntiForgeryToken]

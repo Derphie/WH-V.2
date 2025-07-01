@@ -11,13 +11,14 @@ namespace WorkHub.BusinessLogic.DBModel
 {
      class UserContext : DbContext
      {
-          public UserContext() :
-               base("name=WorkHub")
+          public UserContext() : base("name=WorkHub")
           {
+               this.Configuration.LazyLoadingEnabled = false;
+               this.Configuration.ProxyCreationEnabled = false;
           }
 
           public virtual DbSet<UDbTable> Users { get; set; }
-          public DbSet<Chat> ChatRooms { get; set; }
-          public DbSet<ChatMessage> ChatMessages { get; set; }
+          public virtual DbSet<Chat> ChatRooms { get; set; }
+          public virtual DbSet<ChatMessage> ChatMessages { get; set; }
      }
 }

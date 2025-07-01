@@ -26,5 +26,10 @@ namespace WorkHub.BusinessLogic
           {
                return new ChatBL();
           }
+
+          public IAdmin GetAdminBL()
+          {
+               return new AdminBL();
+          }
      }
 }

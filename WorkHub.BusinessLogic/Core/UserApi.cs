@@ -20,7 +20,7 @@ namespace WorkHub.BusinessLogic.Core
                {
                     var hash = PasswordHelper.HashGen(auth.Password);
 
-                    svar user = db.Users.FirstOrDefault(u =>
+                    var user = db.Users.FirstOrDefault(u =>
                         u.Email == auth.Email &&
                         u.Password == hash
                     );
