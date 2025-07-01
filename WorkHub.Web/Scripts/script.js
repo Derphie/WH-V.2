@@ -1,87 +1,82 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-     // Selectare elemente
+     // Tabs logic (dacă există)
      const tabsBtns = document.querySelectorAll(".tabs__nav button");
      const tabsItems = document.querySelectorAll(".tabs__item");
 
      if (tabsBtns.length > 0 && tabsItems.length > 0) {
-          // Funcție pentru ascunderea tab-urilor
           function hideTabs() {
                tabsItems.forEach(item => item.classList.add("hide"));
                tabsBtns.forEach(item => item.classList.remove("active"));
           }
 
-          // Funcție pentru afișarea unui tab specific
           function showTab(index) {
                tabsItems[index].classList.remove("hide");
                tabsBtns[index].classList.add("active");
           }
 
-          // Inițializare: ascundem toate tab-urile și afișăm primul
           hideTabs();
           showTab(0);
 
-          // Eveniment pentru schimbarea tab-urilor la click
-          tabsBtns.forEach((btn, index) => btn.addEventListener("click", () => {
-               hideTabs();
-               showTab(index);
-          }));
+          tabsBtns.forEach((btn, index) => {
+               btn.addEventListener("click", () => {
+                    hideTabs();
+                    showTab(index);
+               });
+          });
      }
 
-     // Navigare lină între secțiuni
+     // Navigare lină DOAR pentru ancore locale (href="#...")
      const anchors = document.querySelectorAll(".header__nav a");
 
      if (anchors.length > 0) {
           anchors.forEach(anc => {
                anc.addEventListener("click", function (event) {
-                    event.preventDefault();
+                    const href = anc.getAttribute("href");
 
-                    const id = anc.getAttribute("href");
-                    const elem = document.querySelector(id);
+                    if (href && href.startsWith("#")) {
+                         event.preventDefault();
 
-                    if (elem) {
-                         elem.scrollIntoView({ behavior: "smooth", block: "start" });
+                         const target = document.querySelector(href);
+                         if (target) {
+                              target.scrollIntoView({ behavior: "smooth", block: "start" });
+                         }
                     }
                });
           });
      }
 });
 
-
-//script pentru animatia headerului
-
-let lastScrollTop = 0; // Poziția de scroll anterior
-const header = document.querySelector("header"); // Selectează header-ul
+// Animatie header la scroll
+let lastScrollTop = 0;
+const header = document.querySelector("header");
 
 window.addEventListener("scroll", function () {
-     let currentScroll = window.pageYOffset || document.documentElement.scrollTop; // Poziția curentă de scroll
+     let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
      if (currentScroll > lastScrollTop) {
-          // Scroll în jos - ascunde header-ul
-          header.style.top = "-80px"; // Ajustează valoarea pentru a se potrivi cu înălțimea header-ului
+          header.style.top = "-80px"; // ascunde
      } else {
-          // Scroll în sus - arată header-ul
-          header.style.top = "0"; // Arată header-ul
+          header.style.top = "0"; // arată
      }
 
-     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Evită problemele cu scroll-ul negativ
+     lastScrollTop = Math.max(currentScroll, 0);
 });
 
-// Funcționalitate pentru a arăta și ascunde săgeata de derulare
-window.onscroll = function () { showScrollButton() };
+// Scroll to top button logic
+window.onscroll = function () {
+     showScrollButton();
+};
 
 function showScrollButton() {
      var scrollButton = document.getElementById("scroll-to-top");
 
-     // Arată săgeata când utilizatorul derulează sub 200px (la jumătatea paginii)
      if (document.body.scrollTop > 3000 || document.documentElement.scrollTop > 3000) {
-          scrollButton.style.display = "block";  // Arată săgeata
+          scrollButton.style.display = "block";
      } else {
-          scrollButton.style.display = "none";  // Ascunde săgeata
+          scrollButton.style.display = "none";
      }
 }
 
-// La click, derulează pagina în sus
 document.getElementById("scroll-to-top").onclick = function () {
      window.scrollTo({ top: 0, behavior: 'smooth' });
 };
-

@@ -20,7 +20,7 @@ namespace WorkHub.BusinessLogic.Core
                {
                     var hash = PasswordHelper.HashGen(auth.Password);
 
-                    var user = db.Users.FirstOrDefault(u =>
+                    svar user = db.Users.FirstOrDefault(u =>
                         u.Email == auth.Email &&
                         u.Password == hash
                     );
@@ -29,7 +29,7 @@ namespace WorkHub.BusinessLogic.Core
                     {
                          user.LastLogin = DateTime.Now;
                          db.SaveChanges();
-                         return Guid.NewGuid().ToString(); 
+                         return Guid.NewGuid().ToString(); // sau orice alt sistem de sesiuni
                     }
 
                     return null;

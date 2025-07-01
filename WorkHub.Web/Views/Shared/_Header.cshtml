@@ -1,12 +1,28 @@
-﻿<div class="container header__container">
-     <h1 class="logo"><a href="@Url.Action("Index", "Home")">WorkHub</a></h1>
+﻿@{
+     var username = Session["Username"] as string;
+     var isLoggedIn = !string.IsNullOrEmpty(username);
+}
+
+<div class="container header__container">
+     <h1 class="logo">
+          <a href="@Url.Action("Index", "Home")">WorkHub</a>
+     </h1>
 
      <nav class="header__nav">
           <ul>
-               <li><a href="#main">Acasă</a></li>
-               <li><a href="#services">Servicii</a></li>
-               <li><a href="#!">Cum începi pe WorkHub?</a></li>
-               <li><a href="#!">Devino Vânzător</a></li>
+               <li><a href="@Url.Action("Index", "Home")">Acasă</a></li>
+
+               @if (!isLoggedIn)
+               {
+                    <li><a href="#services">Servicii</a></li>
+                    <li><a href="@Url.Action("Index", "Auth")">Sign in</a></li>
+                    <li><a href="@Url.Action("Index", "Register")">Sign up</a></li>
+               }
+               else
+               {
+                    <li><a href="@Url.Action("Index", "Chat")">Chat</a></li>
+                    <li><a href="@Url.Action("Logout", "Auth")">Logout, @username</a></li>
+               }
           </ul>
      </nav>
 </div>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -22,7 +21,6 @@ namespace WorkHub.Web.Models.Chat
 
           public string Topic { get; set; }
 
-          [InverseProperty("Chat")]
           public virtual ICollection<ChatMessage> Messages { get; set; }
      }
 

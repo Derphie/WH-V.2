@@ -28,8 +28,6 @@ namespace WorkHub.Web.Models.Chat
           public Chat Chat { get; set; }
 
           public URole SenderRole { get; set; }
-
-          public bool IsNew { get; set; } = true;
      }
 
 }
