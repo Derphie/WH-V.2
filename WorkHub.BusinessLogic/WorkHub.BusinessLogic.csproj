@@ -56,6 +56,7 @@
     <Compile Include="BLLogic\UserBL.cs" />
     <Compile Include="BussinesLogic.cs" />
     <Compile Include="Core\AdminApi.cs" />
+    <Compile Include="Core\ChatApi.cs" />
     <Compile Include="Core\UserApi.cs" />
     <Compile Include="DBModel\UserContext.cs" />
     <Compile Include="Interfaces\IChat.cs" />
