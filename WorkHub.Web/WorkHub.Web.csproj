@@ -253,6 +253,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Auth\AuthData.cs" />
+    <Compile Include="Models\Chat\ChatModel.cs" />
     <Compile Include="Models\Reg\RegData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -60,6 +60,37 @@ namespace WorkHub.BusinessLogic.Core
                     db.SaveChanges();
                }
           }
+
+          public List<ChatMessage> GetMessagesForChatAction(int chatId)
+          {
+               using (var db = new UserContext())
+               {
+                    return db.ChatMessages
+                             .Where(m => m.ChatRoomId == chatId)
+                             .OrderBy(m => m.SentAt)
+                             .ToList();
+               }
+          }
+
+          public void DeleteChatAction(int chatId)
+          {
+               using (var db = new UserContext())
+               {
+                    var chat = db.ChatRooms.FirstOrDefault(c => c.Id == chatId);
+                    if (chat != null)
+                    {
+                         // Șterge întâi mesajele asociate
+                         var messages = db.ChatMessages.Where(m => m.ChatRoomId == chatId);
+                         db.ChatMessages.RemoveRange(messages);
+
+                         // Apoi șterge chatul
+                         db.ChatRooms.Remove(chat);
+
+                         db.SaveChanges();
+                    }
+               }
+          }
+
      }
 
 }
