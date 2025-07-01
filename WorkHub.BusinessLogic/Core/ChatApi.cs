@@ -35,6 +35,31 @@ namespace WorkHub.BusinessLogic.Core
                }
           }
 
+          public Chat GetChatByIdAction(int id)
+          {
+               using (var db = new UserContext())
+               {
+                    return db.ChatRooms.Include("Messages").FirstOrDefault(c => c.Id == id);
+               }
+          }
+
+          public void SendMessageAction(int chatId, string sender, string content, URole role)
+          {
+               using (var db = new UserContext())
+               {
+                    var message = new ChatMessage
+                    {
+                         ChatRoomId = chatId,
+                         Sender = sender,
+                         Content = content,
+                         SenderRole = role,
+                         SentAt = DateTime.Now
+                    };
+
+                    db.ChatMessages.Add(message);
+                    db.SaveChanges();
+               }
+          }
      }
 
 }
