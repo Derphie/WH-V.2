@@ -250,6 +250,7 @@
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -267,12 +268,15 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="packages.config" />
     <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_Admin.cshtml" />
     <Content Include="Views\Shared\_Header_Admin.cshtml" />
-    <Content Include="Views\Admin\Edit.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Services\ServiceWeb.cshtml" />
+    <Content Include="Views\Services\ServiceDesign.cshtml" />
+    <Content Include="Views\Services\ServiceMarketing.cshtml" />
+    <Content Include="Views\Services\ServiceEditing.cshtml" />
     <Content Include="Views\Services\ServiceTranslation.cshtml" />
     <Content Include="Views\Services\ServiceStudents.cshtml" />
     <None Include="Web.Debug.config">
