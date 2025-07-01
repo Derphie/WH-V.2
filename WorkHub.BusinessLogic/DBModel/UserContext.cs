@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorkHub.Domain.Entities.User;
+using WorkHub.Web.Models.Chat;
 
 namespace WorkHub.BusinessLogic.DBModel
 {
@@ -16,5 +17,7 @@ namespace WorkHub.BusinessLogic.DBModel
           }
 
           public virtual DbSet<UDbTable> Users { get; set; }
+          public DbSet<Chat> ChatRooms { get; set; }
+          public DbSet<ChatMessage> ChatMessages { get; set; }
      }
 }

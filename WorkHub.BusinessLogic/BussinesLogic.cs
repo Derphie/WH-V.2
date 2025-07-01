@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using WorkHub.BusinessLogic.BLLogic;
 using WorkHub.BusinessLogic.BLogic;
 using WorkHub.BusinessLogic.Interfaces;
 
@@ -16,10 +17,14 @@ namespace WorkHub.BusinessLogic
                return new SessionBL(session, request, response);
           }
 
-
           public IUser GetUserBL()
           {
                return new UserBL();
+          }
+
+          public IChat GetChatBL()
+          {
+               return new ChatBL();
           }
      }
 }

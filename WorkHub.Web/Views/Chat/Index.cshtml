@@ -1,0 +1,153 @@
+﻿@model WorkHub.Web.Models.Chat.ChatModel
+@using WorkHub.Domain.Enums
+@{
+     ViewBag.Title = "Chat";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+
+     var username = Session["Username"] as string;
+     int? level = Session["Level"] as int?;
+     bool isModerator = level >= (int)URole.Moderator;
+}
+
+<div style="display: flex; gap: 20px; height: calc(100vh - 200px); margin-top: 80px;">
+
+     <!-- Sidebar: lista chat -->
+     <div style="width:300px; overflow-y:auto; border:1px solid #ccc; padding:15px; background:#f0f4f8; border-radius:6px;">
+          <h4 style="margin-bottom:20px; color:#333;">📨 Chat-urile tale</h4>
+
+          <ul style="list-style:none; padding:0; margin:0;">
+               @foreach (var chat in Model.AllChats)
+               {
+                    var isActive = Model.ActiveChat != null && chat.Id == Model.ActiveChat.Id;
+                    <li style="margin-bottom:10px;">
+                         <a href="@Url.Action("Index", "Chat", new { id = chat.Id })"
+                            style="display:block; padding:10px 12px; border-radius:6px;
+                              text-decoration:none; color:@(isActive ? "#fff" : "#333");
+                              background:@(isActive ? "#007bff" : "#fff");
+                              border:1px solid #ccc; transition:0.3s;">
+                              <strong>@chat.Title</strong><br />
+                              <small style="color:@(isActive ? "#e6e6e6" : "#666")">@chat.Topic</small>
+                         </a>
+                    </li>
+               }
+          </ul>
+
+          <hr style="margin:25px 0;" />
+          <h5 style="margin-bottom:10px;">➕ Crează Chat</h5>
+
+          @using (Html.BeginForm("Create", "Chat", FormMethod.Post))
+          {
+               @Html.AntiForgeryToken()
+               <div class="form-group" style="margin-bottom:10px;">
+                    <input type="text" name="Title" class="form-control" placeholder="Titlu chat" required
+                           style="width:90%; padding:8px 10px; border-radius:4px; border:1px solid #ccc;" />
+               </div>
+               <div class="form-group" style="margin-bottom:10px;">
+                    <select name="Topic" class="form-control" required
+                            style="width:100%; padding:8px 10px; border-radius:4px; border:1px solid #ccc;">
+                         <option value="">--Tematică--</option>
+                         <option>Dezvoltare Web</option>
+                         <option>Design Grafic</option>
+                         <option>Consultanță în Marketing</option>
+                         <option>Editare Foto și Video</option>
+                         <option>Traduceri</option>
+                         <option>Asistență pentru Studenți</option>
+                    </select>
+               </div>
+               <button type="submit"
+                       class="btn btn-primary btn-block"
+                       style="width:100%; padding:8px 10px; border-radius:4px;">
+                    Creare
+               </button>
+          }
+     </div>
+
+
+     <!-- Zona chat activ -->
+     <div style="flex-grow:1; background:#fff; border:1px solid #ccc; display:flex; flex-direction:column;">
+          @if (Model.ActiveChat != null)
+          {
+               <div style="padding:10px; border-bottom:1px solid #ddd;">
+                    <h4>@Model.ActiveChat.Title</h4>
+                    <p><strong>Tematică:</strong> @Model.ActiveChat.Topic</p>
+                    @if (Model.ActiveChat.CreatedBy == username || isModerator)
+                    {
+                         <div style="margin-top:10px;">
+                              @using (Html.BeginForm("Delete", "Chat", FormMethod.Post, new { onsubmit = "return confirm('Sigur vrei să ștergi acest chat?');" }))
+                              {
+                                   @Html.AntiForgeryToken()
+                                   @Html.Hidden("id", Model.ActiveChat.Id)
+                                   <button type="submit" class="btn btn-danger btn-sm">
+                                        🗑️ Șterge acest chat
+                                   </button>
+                              }
+                         </div>
+                    }
+
+               </div>
+
+               <div style="flex-grow:1; overflow-y:auto; padding:10px;">
+                    @if (Model.Messages.Any())
+                    {
+                         foreach (var msg in Model.Messages)
+                         {
+                              var isModOrAdmin = msg.SenderRole == URole.Moderator || msg.SenderRole == URole.Administrator;
+                              var color = msg.Sender == username ? "#007bff" : (isModOrAdmin ? "#e67e22" : "#333");
+                              var fontWeight = isModOrAdmin ? "bold" : "normal";
+
+                              <div style="margin-bottom:15px;">
+                                   <strong style="color:@color; font-weight:@fontWeight">
+                                        @msg.Sender
+                                        @if (msg.SenderRole == URole.Moderator)
+                                        {
+                                             <span style="color:#e67e22; font-size: 0.9em; margin-left:6px;">(Moderator)</span>
+                                        }
+                                        else if (msg.SenderRole == URole.Administrator)
+                                        {
+                                             <span style="color:#c0392b; font-size: 0.9em; margin-left:6px;">(Admin)</span>
+                                        }
+                                   </strong>:
+                                   <span style="color:#000;">@msg.Content</span>
+                                   <div><small>@msg.SentAt.ToString("g")</small></div>
+                              </div>
+                         }
+                    }
+                    else
+                    {
+                         <p style="color:gray">Nu există mesaje.</p>
+                    }
+               </div>
+
+               if (Model.ActiveChat.CreatedBy == username || isModerator)
+               {
+                    <div style="padding:10px; border-top:1px solid #ddd; position:relative;">
+                         @using (Html.BeginForm("SendMessage", "Chat", FormMethod.Post))
+                         {
+                              @Html.AntiForgeryToken()
+                              @Html.Hidden("ChatRoomId", Model.ActiveChat.Id)
+                              <textarea name="Content" class="form-control"
+                                        style="width:85%; height:60px; padding-right:50px;"
+                                        placeholder="Scrie un mesaj..." required></textarea>
+                              <button type="submit"
+                                      style="position:absolute; right:20px; bottom:20px; border:none; background:none;">
+                                   <img src="@Url.Content("~/Content/img/send-arrow.png")" alt="Trimite"
+                                        style="width:30px; height:30px;" />
+                              </button>
+                         }
+                    </div>
+               }
+               else
+               {
+                    <div style="padding:10px; border-top:1px solid #ddd;">
+                         <p style="color:gray">Doar creatorul sau moderatorii pot scrie.</p>
+                    </div>
+               }
+          }
+          else
+          {
+               <div style="padding:20px;">
+                    <p>Selectează un chat.</p>
+               </div>
+          }
+     </div>
+</div>

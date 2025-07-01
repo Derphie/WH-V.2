@@ -93,6 +93,13 @@ p {
 .biger-text{
      font-size: 25px;
 }
+
+.chat-sidebar a:hover {
+     background-color: #e6f0ff;
+     border-color: #b3d1ff;
+     text-decoration: none;
+}
+
 /* ------------ HEADER ------------ */
 
 .header {
