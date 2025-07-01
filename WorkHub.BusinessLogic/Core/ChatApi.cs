@@ -27,6 +27,14 @@ namespace WorkHub.BusinessLogic.Core
                }
           }
 
+          public List<Chat> GetAllChatsAction()
+          {
+               using (var db = new UserContext())
+               {
+                    return db.ChatRooms.OrderByDescending(c => c.CreatedAt).ToList();
+               }
+          }
+
      }
 
 }
